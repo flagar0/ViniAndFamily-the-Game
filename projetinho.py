@@ -87,7 +87,13 @@ def dificuldade():
         dificuldade1 = int(0)
         dificuldade2 = int(5)
     # Voltar ao menu
-    return dificuldade1, dificuldade2, ValorDificuldade, RespDif,operacao
+
+    # Salva dados na  config
+    configs.dif1 = dificuldade1
+    configs.dif2 = dificuldade2
+    configs.ValorDificuldade = ValorDificuldade
+    configs.RespDif = RespDif
+    configs.operacao = operacao
 # ==========================
 
 
@@ -102,43 +108,45 @@ def Ortografia(Score):
 
 Bemvindo()
 Continuacao = "S"
-Score = int(0)
 RespDif = 0
 AcertoQuestao = 0
+configs = Config()
 
 while (Continuacao == "S"):
-    dificuldade1, dificuldade2, ValorDificuldade, RespDif,operacao = dificuldade()
+    Score = 0
+    # Cria OBJ com as configs
+    dificuldade()
+
     # QtdExer - Serão as quantidades escolhidas pelo usuário de exercício
     QtdExer = int(input("\nQuantos exercícios voce deseja realizar ? "))
     Cont = 0
     Resp = float(0)
 
+    # Add nas configs
+    configs.QtdExer = QtdExer
+
     # Faz operacao soma
-    if(operacao == "soma"):
-        AcertoQuestao, Score = operacao_soma(
-        dificuldade1, dificuldade2, RespDif, QtdExer, ValorDificuldade, Score, AcertoQuestao)
+    if(configs.operacao == "soma"):
+        AcertoQuestao, Score = operacao_soma(configs)
 
     # Faz operacao subtracao
-    if(operacao == "sub"):
-        AcertoQuestao, Score = operacao_subtracao(
-        dificuldade1, dificuldade2, RespDif, QtdExer, ValorDificuldade, Score, AcertoQuestao)
+    if(configs.operacao == "sub"):
+        AcertoQuestao, Score = operacao_subtracao(configs)
 
-    if(operacao == "multi"):
-        AcertoQuestao, Score = operacao_multi(
-        dificuldade1, dificuldade2, RespDif, QtdExer, ValorDificuldade, Score, AcertoQuestao)
+    if(configs.operacao == "multi"):
+        AcertoQuestao, Score = operacao_multi(configs)
 
-    if(operacao == "div"):
-        AcertoQuestao, Score = operacao_divisao(
-        dificuldade1, dificuldade2, RespDif, QtdExer, ValorDificuldade, Score, AcertoQuestao)
+    if(configs.operacao == "div"):
+        AcertoQuestao, Score = operacao_divisao(configs)
 
     if(AcertoQuestao > 1) or (AcertoQuestao == 0):
         print("Voce acertou {} exercícios.".format(AcertoQuestao))
     else:
         print("Voce acertou {} exercício".format(AcertoQuestao))
     Ortografia(Score)
+    ScoreG = Arquivo()
     Continuacao = str(input("Voce deseja praticar denovo? {S/N}\n"))
     if (Continuacao == 's'):
         Continuacao = Continuacao.upper()
 # Função abrindo arquivo
-ScoreG = Arquivo()
 print("\nSua pontuação total é de: {} ".format(ScoreG))
