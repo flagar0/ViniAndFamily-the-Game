@@ -123,6 +123,13 @@ while (Continuacao == "S"):
         AcertoQuestao, Score = operacao_subtracao(
         dificuldade1, dificuldade2, RespDif, QtdExer, ValorDificuldade, Score, AcertoQuestao)
 
+    if(operacao == "multi"):
+        AcertoQuestao, Score = operacao_multi(
+        dificuldade1, dificuldade2, RespDif, QtdExer, ValorDificuldade, Score, AcertoQuestao)
+
+    if(operacao == "div"):
+        AcertoQuestao, Score = operacao_divisao(
+        dificuldade1, dificuldade2, RespDif, QtdExer, ValorDificuldade, Score, AcertoQuestao)
 
     if(AcertoQuestao > 1) or (AcertoQuestao == 0):
         print("Voce acertou {} exercícios.".format(AcertoQuestao))
